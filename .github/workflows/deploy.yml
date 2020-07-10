@@ -27,4 +27,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Deploying
         run: aws s3 sync ./ s3://${{secrets.AWS_BUCKET_NAME}} --delete
-        run: echo "Deployed to S3"
+      - run: echo "Deployed to S3"
