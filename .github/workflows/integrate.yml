@@ -1,0 +1,18 @@
+name: Test PR
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  Test-Pull-Request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Setting up
+        run: npm ci
+      - run: echo "Good to go."
