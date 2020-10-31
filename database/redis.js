@@ -82,10 +82,8 @@ class Redis extends RedisConnection {
     return new Promise((resolve, reject) => {
       RedisConnection.db.hset(redisHash, key, value, (err, response) => {
         if (err) {
-          console.log('get err', err);
           reject(err);
         } else {
-          console.log('get resp->', response);
           resolve(response);
         }
       });
@@ -96,10 +94,8 @@ class Redis extends RedisConnection {
     return new Promise((resolve, reject) => {
       RedisConnection.db.hget(redisHash, key, (err, response) => {
         if (err) {
-          console.log('get err', err);
           reject(err);
         } else {
-          console.log('get resp->', response);
           resolve(response);
         }
       });
