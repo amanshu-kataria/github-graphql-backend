@@ -1,14 +1,7 @@
-const express = require('express');
-const app = express();
 const fetch = require('node-fetch');
-require('dotenv').config();
-const port = process.env.APP_PORT;
-const apiRateLimit = require('./middlerware/rateLimiter');
 const redis = require('./database/redis');
 
-app.use(apiRateLimit);
-
-app.get('/access-token/:userId', async (req, res) => {
+async function getAccessToken(req, res, next) {
   const { AUTH0_API_CLIENT_ID, AUTH0_API_CLIENT_SECRET, AUTH0_API_AUDIENCE, AUTH0_API_GRANT_TYPE, AUTH0_DOMAIN } = process.env;
   var options = {
     method: 'POST',
@@ -69,6 +62,6 @@ app.get('/access-token/:userId', async (req, res) => {
     .catch(() => {
       res.status(500).send({ message: 'Something went wrong.' });
     });
-});
+}
 
-app.listen(port, () => console.log(`App is listening at http://localhost:${port}`));
+module.exports = getAccessToken;
