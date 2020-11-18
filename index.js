@@ -5,13 +5,13 @@ const port = process.env.APP_PORT;
 const apiRateLimit = require('./middlerware/rateLimiter');
 const getAccessToken = require('./accessToken');
 const errorHandler = require('./middlerware/errorHandler');
-
-// app.use(apiRateLimit);
+const authorizationMiddleware = require('./middlerware/authorization');
+app.use(apiRateLimit);
 
 app.get('/', (req, res, next) => {
   throw new Error('Error');
 });
-app.get('/access-token/:userId', getAccessToken);
+app.get('/access-token/:userId', authorizationMiddleware, getAccessToken);
 
 app.use(errorHandler);
 
